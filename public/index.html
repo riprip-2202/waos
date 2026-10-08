@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>waos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>waos</h1>
+      <p class="subtitle">Comparte archivos de forma sencilla</p>
+
+      <div class="panel">
+        <h2>Subir archivo</h2>
+        <p class="hint">Sube un archivo y genera un enlace para enviárselo a otra persona.</p>
+        <label class="dropzone" id="dropzone">
+          <input id="fileInput" type="file">
+          <span id="fileLabel">Seleccionar archivo</span>
+        </label>
+        <button id="uploadBtn" class="primary">Generar enlace</button>
+        <div id="uploadStatus" class="status"></div>
+        <div id="shareBox" class="share hidden">
+          <input id="shareUrl" readonly>
+          <button id="copyBtn">Copiar</button>
+        </div>
+      </div>
+
+      <div class="divider"><span>o</span></div>
+
+      <div class="panel">
+        <h2>Descargar</h2>
+        <p class="hint">Pega la URL de un archivo o un enlace de waos.</p>
+        <div class="urlrow">
+          <input id="urlInput" type="url" placeholder="https://...">
+          <button id="downloadBtn" class="primary small">Descargar</button>
+        </div>
+        <div id="downloadStatus" class="status"></div>
+      </div>
+    </section>
+    <footer>waos · transferencia de archivos</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

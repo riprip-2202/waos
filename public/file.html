@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>waos · archivo</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card filecard">
+      <h1>waos</h1>
+      <div id="loading">Cargando archivo...</div>
+      <div id="fileInfo" class="hidden">
+        <div class="fileicon">↓</div>
+        <h2 id="name"></h2>
+        <p id="size" class="hint"></p>
+        <a id="download" class="button primary" href="#">Descargar archivo</a>
+      </div>
+      <div id="error" class="status error"></div>
+    </section>
+  </main>
+  <script>
+    const id = location.pathname.split("/").pop();
+    const size = n => n < 1024 ? n+" B" :
+      n < 1024**2 ? (n/1024).toFixed(1)+" KB" :
+      n < 1024**3 ? (n/1024**2).toFixed(1)+" MB" :
+      (n/1024**3).toFixed(2)+" GB";
+
+    fetch("/api/file/" + encodeURIComponent(id))
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(f => {
+        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("fileInfo").classList.remove("hidden");
+        document.getElementById("name").textContent = f.name;
+        document.getElementById("size").textContent = size(f.size);
+        document.getElementById("download").href = "/download/" + encodeURIComponent(id);
+      })
+      .catch(() => {
+        document.getElementById("loading").classList.add("hidden");
+        document.getElementById("error").textContent = "Este enlace no existe o el archivo ya no está disponible.";
+      });
+  </script>
+</body>
+</html>
